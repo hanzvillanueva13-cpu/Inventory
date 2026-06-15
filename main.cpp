@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 
+#include "Audit.h"
 #include "Color.h"
 
 /**
@@ -14,6 +15,7 @@ void title();
 void credits();
 
 int main() {
+    view_audit_logs();
     return 0;
 }
 

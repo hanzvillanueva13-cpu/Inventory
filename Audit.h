@@ -15,6 +15,6 @@ void view_audit_logs();
 /**
  * @brief Append the audit message to file
  */
-void save_audit_logs(std::string message);
+void save_audit(const std::string &message);
 
 #endif //INVENTORY_AUDIT_H

@@ -40,6 +40,11 @@ struct BeverageEntry {
     bool is_archive{};
 };
 
+struct Order {
+    int item_id{};
+    int amount{};
+};
+
 struct Inventory {
     // The id to use
     int next_id = 1;
@@ -47,14 +52,23 @@ struct Inventory {
     // The inventory for foods and beverages
     std::vector<FoodEntry> foods;
     std::vector<BeverageEntry> beverages;
+
+    // For tracking current orders
+    std::vector<Order> orders;
 };
+
+/**
+ * @brief Load the inventory from file
+ * @param inventory The inventory to populate
+ */
+void load_inventory(Inventory &inventory);
 
 /**
  * @brief Generate the id to use
  * @param inventory The inventory that tracks the IDs
  * @return The id to be used
  */
-int generate_id(Inventory& inventory);
+int generate_id(Inventory &inventory);
 
 /**
  * @brief Add an item based from user input
@@ -83,15 +97,35 @@ void find_item(const Inventory &inventory);
 // ========== Menu Options: Inventory ==========
 
 /**
- * @brief View the inventory content
+ * @brief View the inventory content in detailed form
  * @param inventory The inventory to show
  */
 void view_inventory(const Inventory &inventory);
+
+/**
+ * @brief View inventory stock content
+ * @param inventory The inventory to show
+ */
+void view_stocks(const Inventory &inventory);
 
 /**
  * @brief Save the inventory to file
  * @param inventory The inventory to save
  */
 void save_inventory(Inventory &inventory);
+
+// ========== Menu Options: Inventory ==========
+
+/**
+ * @brief To view orders in table-like form
+ * @param inventory The inventory containing the order list
+ */
+void view_orders(Inventory &inventory);
+
+/**
+ * @brief Add new order to the list
+ * @param inventory The inventory containing the order list
+ */
+void add_order(Inventory &inventory);
 
 #endif //INVENTORY_INVENTORY_H

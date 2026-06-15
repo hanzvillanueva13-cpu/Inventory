@@ -19,6 +19,7 @@ void view_audit_logs() {
     // Check for file existence
     if (!std::filesystem::exists(audit_file)) {
         print_info("File not found. Starting a new log file.");
+        return; // Exit cleanly
     }
 
     // Open the file
@@ -26,7 +27,7 @@ void view_audit_logs() {
 
     if (!f.is_open()) {
         print_error("Unable to open the file.");
-        return;
+        return; // Exit cleanly
     }
 
     // Read the file line-by-line
@@ -35,9 +36,22 @@ void view_audit_logs() {
         std::cout << line << '\n';
     }
 
-    // Show a completion message
-    if
+    // Close the file stream
+    f.close();
 }
 
-void save_audit_logs(std::string message) {
+void save_audit(const std::string &message) {
+    // Create and open file - Append to last line
+    std::ofstream f(audit_file, std::ios::app);
+
+    if (!f.is_open()) {
+        print_error("Unable to open the file.");
+        return; // Exit cleanly
+    }
+
+    // Append the message to the file
+    f << message << '\n';
+
+    // Close the file stream
+    f.close();
 }

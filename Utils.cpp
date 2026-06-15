@@ -4,6 +4,11 @@
 
 // ========== Helper Methods: String Manipulation ==========
 
+#include <iostream>
+#include <string>
+
+#include "Log.h"
+
 void trim(std::string &s) {
     const std::string whitespaces = " \t\r\n";
     const auto start = s.find_first_not_of(whitespaces);
@@ -146,4 +151,42 @@ std::string get_string(const std::string &prompt) {
         // Return the valid result to the user
         return input;
     }
+}
+
+std::string get_string_or_skip(const std::string &prompt, const std::string &current_value) {
+    std::string input;
+
+    std::cout << prompt;
+
+    if (!(std::getline(std::cin, input))) {
+        // Throw on unrecoverable errors
+        if (std::cin.eof()) {
+            throw std::runtime_error("Input interrupted.");
+        }
+
+        if (std::cin.bad()) {
+            throw std::runtime_error("Stream failed.");
+        }
+
+        // Clean up on recoverable errors like
+        // To be honest I don't know what kind of error is this for
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        print_error("Invalid input. Must be a valid string. Skipping.");
+        input = current_value;
+        return input;
+    }
+
+    // Trim the string of whitespaces
+    trim(input);
+
+    // Check if empty
+    if (input.empty()) {
+        print_error("Invalid input. Must NOT be empty. Skipping.");
+        input = current_value;
+        return input;
+    }
+
+    // Return the valid result to the user
+    return input;
 }
