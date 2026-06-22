@@ -43,6 +43,8 @@ struct BeverageEntry {
  * @brief Represents a single line of a transaction.
  */
 struct Order {
+    std::string
+        ticket;    /// @brief Customer name or ticket grouping related orders
     int entry_id;  /// @brief What product they ordered? (food or beverage id)
     int amount;    /// @brief How much they ordered?
 };
@@ -121,13 +123,18 @@ int generate_id(Inventory& inventory);
 void create_entry(Inventory& inventory);
 
 /**
- * @brief Soft-delete an entry from the inventory (sets is_archived)
+ * @brief Soft-delete an entry from the inventory (sets is_archived). If
+ *        it has pending orders, the user is warned that removing it
+ *        will cancel them, and only proceeds if they confirm
  * @param inventory The inventory to remove from
  */
 void remove_entry(Inventory& inventory);
 
 /**
- * @brief Update an entry in the inventory
+ * @brief Update an entry in the inventory. Name and price always apply.
+ *        If the new stock would drop below what's already reserved by
+ *        pending orders, the user is warned and, only if they confirm,
+ *        those pending orders get canceled
  * @param inventory The inventory with the id
  */
 void update_entry(Inventory& inventory);
@@ -169,17 +176,30 @@ void load_inventory(Inventory& inventory);
 // ===== Order Methods =====
 
 /**
- * @brief Order a new product from inventory
+ * @brief Reserve an amount of a product as a pending order under a
+ *        customer/ticket name (asked first). Stock isn't deducted yet
+ *        that happens when generate_reciept is confirmed
  */
 void create_order(Inventory& inventory);
 
 /**
- * @brief Show the pending orders and their running total
+ * @brief Ask for a customer/ticket first, then show only that ticket's
+ *        pending orders and their running total
  */
 void view_orders(Inventory& inventory);
 
 /**
- * @brief Show the pending orders, then — only if the user confirms —
- *        clear them and log the receipt as generated
+ * @brief Ask for a customer/ticket first, show only that ticket's
+ *        pending orders, then cancel one of them by its listed number.
+ *        Refuses if the chosen number doesn't belong to that ticket
+ */
+void remove_order(Inventory& inventory);
+
+/**
+ * @brief Ask for a customer/ticket first, show only that ticket's
+ *        pending orders, then only if the user confirms, deduct
+ *        their stock, remove just that ticket's orders, and log the
+ *        receipt as generated. Other tickets' pending orders are
+ *        untouched
  */
 void generate_reciept(Inventory& inventory);
