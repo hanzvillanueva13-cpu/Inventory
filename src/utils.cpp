@@ -47,7 +47,7 @@ char get_char(const std::string& prompt) {
         // Get the input with validation
         if (!(std::cin >> result)) {
             // Check for EOF — End of File
-            // Which can be caused by Ctrl+C or Ctrl+Z
+            // Which can be caused by `Ctrl+C` or `Ctrl+Z`
             if (std::cin.eof()) {
                 // It's unrecoverable so we throw an error
                 // with a meaningful message
@@ -55,7 +55,7 @@ char get_char(const std::string& prompt) {
                     "Unexpected input failure. Triggered end of file.");
             }
 
-            // Check for Stream Failure — std::cin is down
+            // Check for Stream Failure where `std::cin` is down
             if (std::cin.bad()) {
                 throw std::runtime_error(
                     "Unexpected input failure. Input stream failed.");
@@ -67,14 +67,14 @@ char get_char(const std::string& prompt) {
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
             // Show that an error happened
-            // We use `cerr` for ouputing errors
+            // We use `cerr` for outputting errors
             std::cerr
                 << "Invalid input. Please enter a proper letter. Try again.\n";
             continue;  // Retry
         }
 
         // Drop the rest of the line so the next prompt
-        // (whether get_char, get_uint, or get_string) starts clean
+        // (whether get_char, `get_uint`, or get_string) starts clean
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
         // Return the valid result
@@ -92,7 +92,7 @@ int get_uint(const std::string& prompt) {
         // Get the input with validation
         if (!(std::cin >> result)) {
             // Check for EOF — End of File
-            // Which can be caused by Ctrl+C or Ctrl+Z
+            // Which can be caused by `Ctrl+C` or `Ctrl+Z`
             if (std::cin.eof()) {
                 // It's unrecoverable so we throw an error
                 // with a meaningful message
@@ -100,25 +100,25 @@ int get_uint(const std::string& prompt) {
                     "Unexpected input failure. Triggered end of file.");
             }
 
-            // Check for Stream Failure — std::cin is down
+            // Check for Stream Failure where `std::cin` is down
             if (std::cin.bad()) {
                 throw std::runtime_error(
                     "Unexpected input failure. Input stream failed.");
             }
 
             // Now we deal with recoverable error
-            // like type mismatch (e.g., abc, ab12)
+            // like type mismatch (e.g., `abc`, `ab12`)
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
             // Show that an error happened
-            // We use `cerr` for ouputing errors
+            // We use `cerr` for outputting errors
             std::cerr
                 << "Invalid input. Please enter a proper number. Try again.\n";
             continue;  // Retry
         }
 
-        // Drop the rest of the line so a later getline-based
+        // Drop the rest of the line so a later `getline`-based
         // prompt doesn't pick up a leftover newline
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
@@ -142,7 +142,7 @@ int get_uint_or_skip(const std::string& prompt, int default_value) {
     // Get the input with validation
     if (!(std::cin >> result)) {
         // Check for EOF — End of File
-        // Which can be caused by Ctrl+C or Ctrl+Z
+        // Which can be caused by `Ctrl+C` or `Ctrl+Z`
         if (std::cin.eof()) {
             // It's unrecoverable so we throw an error
             // with a meaningful message
@@ -150,19 +150,19 @@ int get_uint_or_skip(const std::string& prompt, int default_value) {
                 "Unexpected input failure. Triggered end of file.");
         }
 
-        // Check for Stream Failure — std::cin is down
+        // Check for Stream Failure where `std::cin` is down
         if (std::cin.bad()) {
             throw std::runtime_error(
                 "Unexpected input failure. Input stream failed.");
         }
 
         // Now we deal with recoverable error
-        // like type mismatch (e.g., abc, ab12)
+        // like type mismatch (e.g., `abc`, `ab12`)
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
         // Show that an error happened
-        // We use `cerr` for ouputing errors
+        // We use `cerr` for outputting errors
         std::cerr << "Invalid input. Not a proper number. Skipping...\n";
         return default_value;
     }
@@ -189,7 +189,7 @@ std::string get_string(const std::string& prompt) {
         // Get the input with validation
         if (!(std::getline(std::cin, result))) {
             // Check for EOF — End of File
-            // Which can be caused by Ctrl+C or Ctrl+Z
+            // Which can be caused by `Ctrl+C` or `Ctrl+Z`
             if (std::cin.eof()) {
                 // It's unrecoverable so we throw an error
                 // with a meaningful message
@@ -197,7 +197,7 @@ std::string get_string(const std::string& prompt) {
                     "Unexpected input failure. Triggered end of file.");
             }
 
-            // Check for Stream Failure — std::cin is down
+            // Check for Stream Failure `std::cin` is down
             if (std::cin.bad()) {
                 throw std::runtime_error(
                     "Unexpected input failure. Input stream failed.");
@@ -208,7 +208,7 @@ std::string get_string(const std::string& prompt) {
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
             // Show that an error happened
-            // We use `cerr` for ouputing errors
+            // We use `cerr` for outputting errors
             std::cerr
                 << "Invalid input. Please enter proper words. Try again.\n";
             continue;  // Retry
@@ -239,7 +239,7 @@ std::string get_string_or_skip(const std::string& prompt,
     // Get the input with validation
     if (!(std::getline(std::cin, result))) {
         // Check for EOF — End of File
-        // Which can be caused by Ctrl+C or Ctrl+Z
+        // Which can be caused by `Ctrl+C` or `Ctrl+Z`
         if (std::cin.eof()) {
             // It's unrecoverable so we throw an error
             // with a meaningful message
@@ -247,7 +247,7 @@ std::string get_string_or_skip(const std::string& prompt,
                 "Unexpected input failure. Triggered end of file.");
         }
 
-        // Check for Stream Failure — std::cin is down
+        // Check for Stream Failure — `std::cin` is down
         if (std::cin.bad()) {
             throw std::runtime_error(
                 "Unexpected input failure. Input stream failed.");
@@ -258,7 +258,7 @@ std::string get_string_or_skip(const std::string& prompt,
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
         // Show that an error happened
-        // We use `cerr` for ouputing errors
+        // We use `cerr` for outputting errors
         std::cerr << "Invalid input. Not a proper word. Skipping...\n";
         return default_value;
     }
@@ -324,4 +324,53 @@ std::string decodeCSV(const std::string& field) {
         }
     }
     return result;
+}
+
+std::vector<std::string> split_csv_line(const std::string& line) {
+    std::vector<std::string> fields;
+    const std::size_t n = line.size();
+    std::size_t i = 0;
+
+    while (true) {
+        std::string field;
+
+        if (i < n && line[i] == '"') {
+            // Quoted field: everything up to the matching closing quote
+            // is part of the value, including commas. A doubled `""`
+            // is an escaped quote, not the end of the field.
+            field += line[i++];  // Keep the opening quote for `decodeCSV`
+            while (i < n) {
+                if (line[i] == '"') {
+                    if (i + 1 < n && line[i + 1] == '"') {
+                        field += "\"\"";
+                        i += 2;
+                        continue;
+                    }
+                    field += line[i++];  // closing quote
+                    break;
+                }
+                field += line[i++];
+            }
+            // Anything between the closing quote and the next comma
+            // (there shouldn't be any in a well-formed file) is ignored.
+            while (i < n && line[i] != ',') {
+                ++i;
+            }
+        } else {
+            // Unquoted field: a comma always ends it here.
+            while (i < n && line[i] != ',') {
+                field += line[i++];
+            }
+        }
+
+        fields.push_back(field);
+
+        if (i < n && line[i] == ',') {
+            ++i;  // Skip the delimiter and read the next field
+            continue;
+        }
+        break;
+    }
+
+    return fields;
 }

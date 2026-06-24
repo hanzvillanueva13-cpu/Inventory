@@ -27,9 +27,8 @@ const std::string QUESTION_COLOR = Color::Cyan + Color::Bold;
 // matter how much content it holds, may end up wider than this.
 const std::size_t MAX_TABLE_WIDTH = 65;
 
-// Cuts text down to fit a column. Adds "…" to mark the cut when
+// Cuts text down to fit a column. Adds "..." to mark the cut when
 // there's room for it, so it stays obvious something got hidden instead
-// of silently dropping characters.
 std::string fit_cell(const std::string& text, std::size_t width) {
     if (text.size() <= width) {
         return text;
@@ -39,7 +38,7 @@ std::string fit_cell(const std::string& text, std::size_t width) {
         return text.substr(0, width);
     }
 
-    return text.substr(0, width - 3) + "…";
+    return text.substr(0, width - 3) + "...";
 }
 
 // Shrinks whichever column is currently widest, one character at a
@@ -81,7 +80,7 @@ std::vector<std::size_t> fit_column_widths(std::vector<std::size_t> widths,
     return widths;
 }
 
-// Lays out one row as "| cell | cell | …". `std::format's` width spec
+// Lays out one row as "| cell | cell | ...". `std::format's` width spec
 // ({:<{}}) does the left-align-and-pad in one call instead of manually
 // building padding strings. Hooray for std::format C++20 feature.
 std::string format_table_row(const std::vector<std::string>& cells,
@@ -869,7 +868,7 @@ void load_inventory(Inventory& inventory) {
                 continue;
             }
 
-            const std::vector<std::string> fields = split(line, CSV_DELIMITER);
+            const std::vector<std::string> fields = split_csv_line(line);
             if (fields.size() < 5) {
                 continue;
             }
@@ -900,7 +899,7 @@ void load_inventory(Inventory& inventory) {
                 continue;
             }
 
-            const std::vector<std::string> fields = split(line, CSV_DELIMITER);
+            const std::vector<std::string> fields = split_csv_line(line);
             if (fields.size() < 5) {
                 continue;
             }
@@ -931,7 +930,7 @@ void load_inventory(Inventory& inventory) {
                 continue;
             }
 
-            const std::vector<std::string> fields = split(line, CSV_DELIMITER);
+            const std::vector<std::string> fields = split_csv_line(line);
             if (fields.size() < 3) {
                 continue;
             }
