@@ -81,3 +81,10 @@ std::string encodeCSV(const std::string& field);
  * @return The decoded value
  */
 std::string decodeCSV(const std::string& field);
+
+/**
+ * @brief Split one CSV row into fields for `decodeCSV` to use
+ * @param line A single CSV row (no header, no trailing newline)
+ * @return The row's fields, in column order
+ */
+std::vector<std::string> split_csv_line(const std::string& line);

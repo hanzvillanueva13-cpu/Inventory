@@ -63,7 +63,7 @@ struct Inventory {
 // ===== Display Methods =====
 
 /**
- * @brief Show a padded message with a new line.
+ * @brief Show a padded message with a newline.
  */
 void show_message(int spacing, const std::string& message,
                   const std::string& color = "");
@@ -80,10 +80,6 @@ void show_success(const std::string& message);
  * @brief Render headers and rows as a bordered table.
  * @param headers Column headers, in display order
  * @param rows    Each row's cells, in the same column order as headers
- * @note Column widths fit their content automatically (so a table never
- *       prints wider than it needs to), but the whole table is capped
- *       at 65 characters wide — columns shrink, and their cells get
- *       truncated with "...", just enough to stay under that cap.
  */
 void show_table(const std::vector<std::string>& headers,
                 const std::vector<std::vector<std::string>>& rows);
