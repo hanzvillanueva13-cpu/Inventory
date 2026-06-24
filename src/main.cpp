@@ -1,5 +1,6 @@
 #include <iostream>
 
+#include "color.hpp"
 #include "inventory.hpp"
 #include "utils.hpp"
 
@@ -12,9 +13,14 @@ int main() {
 
     while (running) {
         std::cout << '\n'
-                << "+---------------------------+\n"
-                << "+    Inventory System <3    +\n"
-                << "+---------------------------+\n";
+                  << Color::Yellow << Color::Bold
+                  << "+--------------------------+\n"
+                  << "+   Inventory System and   +\n"
+                  << "+      Order System <3     +\n"
+                  << "+--------------------------+\n"
+                  << "+  For Food and Beverages  +\n"
+                  << "+--------------------------+\n"
+                  << Color::Reset;
 
         show_question("What do you want to do?");
         show_option("[1]: Manage Products");
