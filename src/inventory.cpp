@@ -23,7 +23,7 @@ const std::string CSV_DELIMITER = ",";
 const std::string TITLE_COLOR = Color::Cyan + Color::Bold + Color::Highlight;
 const std::string QUESTION_COLOR = Color::Cyan + Color::Bold;
 
-// The hard cap show_table is allowed to print a line at — no row, no
+// The hard cap show_table is allowed to print a line at; no row, no
 // matter how much content it holds, may end up wider than this.
 const std::size_t MAX_TABLE_WIDTH = 65;
 
@@ -123,7 +123,7 @@ std::size_t find_beverage_index(const Inventory& inventory, int id) {
 // user's choice directly without knowing global vector positions.
 int print_order_lines(const Inventory& inventory, const std::string& ticket) {
     int total = 0;
-    int local_num = 1; // ticket-local display counter
+    int local_num = 1;  // ticket-local display counter
     const std::string item_color = Color::Green;
 
     for (std::size_t i = 0; i < inventory.orders.size(); ++i) {
@@ -167,8 +167,8 @@ int print_order_lines(const Inventory& inventory, const std::string& ticket) {
 
 // True if at least one pending order belongs to this ticket. Needed
 // instead of just checking print_order_lines' total against 0, since
-// an order placed for 0 units (technically allowed today) would make
-// an empty-looking total even when a match exists.
+// an order placed for 0 units would make an empty-looking total even when a
+// match exists.
 bool has_ticket_orders(const Inventory& inventory, const std::string& ticket) {
     for (const auto& order : inventory.orders) {
         if (order.ticket == ticket) {
@@ -706,8 +706,7 @@ void update_entry(Inventory& inventory) {
     }
 }
 
-
-void search_entry(const Inventory &inventory) {
+void search_entry(const Inventory& inventory) {
     show_question("Search which product type?");
     show_option("[1]: Food");
     show_option("[2]: Beverage");
@@ -726,7 +725,7 @@ void search_entry(const Inventory &inventory) {
 
     if (choice == 1) {
         if (search_by == 1) {
-            // ── Search food by ID ──────────────────────────────────────────
+            // Search food by ID
             const int id = get_uint("Entry id: ");
             const std::size_t index = find_food_index(inventory, id);
             if (index == inventory.foods.size() ||
@@ -736,11 +735,11 @@ void search_entry(const Inventory &inventory) {
             }
             display_food_entry(inventory.foods[index]);
         } else if (search_by == 2) {
-            // ── Search food by name (case-insensitive substring) ───────────
+            // Search food by name (case-insensitive)
             const std::string query = get_string("Name: ");
             const std::string query_lower = to_lower(query);
             bool found = false;
-            for (const auto &entry: inventory.foods) {
+            for (const auto& entry : inventory.foods) {
                 if (entry.is_archived) {
                     continue;
                 }
@@ -758,7 +757,7 @@ void search_entry(const Inventory &inventory) {
         }
     } else {
         if (search_by == 1) {
-            // ── Search beverage by ID ──────────────────────────────────────
+            // Search beverage by ID
             const int id = get_uint("Entry id: ");
             const std::size_t index = find_beverage_index(inventory, id);
             if (index == inventory.beverages.size() ||
@@ -768,11 +767,11 @@ void search_entry(const Inventory &inventory) {
             }
             display_beverage_entry(inventory.beverages[index]);
         } else if (search_by == 2) {
-            // ── Search beverage by name (case-insensitive substring) ───────
+            // Search beverage by name (case-insensitive)
             const std::string query = get_string("Name: ");
             const std::string query_lower = to_lower(query);
             bool found = false;
-            for (const auto &entry: inventory.beverages) {
+            for (const auto& entry : inventory.beverages) {
                 if (entry.is_archived) {
                     continue;
                 }
@@ -793,7 +792,7 @@ void search_entry(const Inventory &inventory) {
 
 // ===== Inventory Methods =====
 
-void view_stocks(const Inventory &inventory) {
+void view_stocks(const Inventory& inventory) {
     show_title("Stocks");
 
     const std::string sub_title_color =
@@ -840,7 +839,7 @@ void view_stocks(const Inventory &inventory) {
     }
 }
 
-void view_inventory(const Inventory &inventory) {
+void view_inventory(const Inventory& inventory) {
     show_title("Foods");
     for (const auto& entry : inventory.foods) {
         if (entry.is_archived) continue;
@@ -1118,7 +1117,7 @@ void create_order(Inventory& inventory) {
     }
 }
 
-void view_orders(const Inventory &inventory) {
+void view_orders(const Inventory& inventory) {
     const std::string ticket = get_string("Customer/Ticket: ");
     show_ticket_orders(inventory, ticket);
 }
@@ -1152,7 +1151,7 @@ void remove_order(Inventory& inventory) {
 
     // Map the ticket-local choice to the real position in inventory.orders.
     const std::size_t global_index =
-            ticket_indices[static_cast<std::size_t>(choice) - 1];
+        ticket_indices[static_cast<std::size_t>(choice) - 1];
     const Order order = inventory.orders[global_index];
 
     // Look up a display name for the confirmation prompt and falls back
